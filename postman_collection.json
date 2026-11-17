@@ -1,0 +1,1375 @@
+{
+  "info": {
+    "name": "Hospital Management System API",
+    "_postman_id": "a9b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "description": "Comprehensive Postman collection for all 6 modules of the Hospital Management System API: Patients, Doctors, Appointments, Billing & Payments, Medicines & Pharmacy, and Laboratory Tests & Results.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:8000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "General & Utility",
+      "item": [
+        {
+          "name": "API Health & Statistics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                ""
+              ]
+            }
+          }
+        },
+        {
+          "name": "Seed Demo Data",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/seed-data",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "seed-data"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Reset In-Memory Database",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/reset-data",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reset-data"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "1. Patient Management",
+      "item": [
+        {
+          "name": "Register Patient",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"full_name\": \"Emily Rose\",\n  \"age\": 29,\n  \"gender\": \"Female\",\n  \"email\": \"emily.rose@example.com\",\n  \"phone\": \"+1-555-0144\",\n  \"blood_group\": \"A+\",\n  \"address\": \"742 Evergreen Terrace\",\n  \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/patients",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "patients"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Patients (Filtered)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/patients?gender=Female&blood_group=A%2B&min_age=18&max_age=65&is_active=true",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "patients"
+              ],
+              "query": [
+                {
+                  "key": "gender",
+                  "value": "Female"
+                },
+                {
+                  "key": "blood_group",
+                  "value": "A+"
+                },
+                {
+                  "key": "min_age",
+                  "value": "18"
+                },
+                {
+                  "key": "max_age",
+                  "value": "65"
+                },
+                {
+                  "key": "is_active",
+                  "value": "true"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Patients by Name",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/patients?search=Emily",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "patients"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "Emily"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Patient by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/patients/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "patients",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Patient",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"age\": 30,\n  \"address\": \"744 Evergreen Terrace\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/patients/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "patients",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Assign Doctor to Patient",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/patients/1/assign-doctor/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "patients",
+                "1",
+                "assign-doctor",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Assigned Doctor for Patient",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/patients/1/doctor",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "patients",
+                "1",
+                "doctor"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Patient",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/patients/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "patients",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Doctor Management",
+      "item": [
+        {
+          "name": "Register Doctor",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"full_name\": \"Dr. Robert Chase\",\n  \"specialization\": \"Cardiology\",\n  \"email\": \"chase@hospital.com\",\n  \"phone\": \"+1-555-0888\",\n  \"experience_years\": 9,\n  \"consultation_fee\": 175.0,\n  \"available_days\": [\"Monday\", \"Wednesday\", \"Friday\"],\n  \"is_available\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/doctors",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "doctors"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Doctors (Filtered & Sorted)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/doctors?specialization=Cardiology&min_experience=5&min_fee=100&max_fee=300&is_available=true&sort_by=fee&sort_order=desc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "doctors"
+              ],
+              "query": [
+                {
+                  "key": "specialization",
+                  "value": "Cardiology"
+                },
+                {
+                  "key": "min_experience",
+                  "value": "5"
+                },
+                {
+                  "key": "min_fee",
+                  "value": "100"
+                },
+                {
+                  "key": "max_fee",
+                  "value": "300"
+                },
+                {
+                  "key": "is_available",
+                  "value": "true"
+                },
+                {
+                  "key": "sort_by",
+                  "value": "fee"
+                },
+                {
+                  "key": "sort_order",
+                  "value": "desc"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Doctor by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/doctors/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "doctors",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Doctor Details",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"consultation_fee\": 190.0,\n  \"experience_years\": 10\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/doctors/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "doctors",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Patients Assigned to Doctor",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/doctors/1/patients",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "doctors",
+                "1",
+                "patients"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Doctor",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/doctors/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "doctors",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Appointment Booking",
+      "item": [
+        {
+          "name": "Book Appointment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patient_id\": 1,\n  \"doctor_id\": 1,\n  \"appointment_date\": \"2026-11-20\",\n  \"appointment_time\": \"10:30:00\",\n  \"reason\": \"Routine cardiovascular evaluation\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/appointments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "appointments"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Appointments (Filtered & Sorted)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/appointments?status=SCHEDULED&sort_by=date_time&sort_order=asc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "appointments"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "SCHEDULED"
+                },
+                {
+                  "key": "sort_by",
+                  "value": "date_time"
+                },
+                {
+                  "key": "sort_order",
+                  "value": "asc"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Appointment by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/appointments/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "appointments",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Reschedule / Update Appointment",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appointment_time\": \"11:00:00\",\n  \"reason\": \"Adjusted for morning schedule\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/appointments/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "appointments",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Cancel Appointment",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/appointments/1/cancel",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "appointments",
+                "1",
+                "cancel"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Appointments for Patient",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/patients/1/appointments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "patients",
+                "1",
+                "appointments"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Appointments for Doctor",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/doctors/1/appointments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "doctors",
+                "1",
+                "appointments"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Appointment",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/appointments/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "appointments",
+                "1"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Billing & Payments",
+      "item": [
+        {
+          "name": "Generate Bill",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patient_id\": 1,\n  \"appointment_id\": 1,\n  \"consultation_fee\": 150.0,\n  \"medicine_charges\": 45.0,\n  \"lab_charges\": 60.0,\n  \"other_charges\": 10.0,\n  \"discount\": 25.0,\n  \"tax_percentage\": 10.0\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/bills",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bills"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Bills (Filtered)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/bills?payment_status=PENDING&sort_by=total_amount&sort_order=desc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bills"
+              ],
+              "query": [
+                {
+                  "key": "payment_status",
+                  "value": "PENDING"
+                },
+                {
+                  "key": "sort_by",
+                  "value": "total_amount"
+                },
+                {
+                  "key": "sort_order",
+                  "value": "desc"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Bill by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/bills/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bills",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Patient Billing History",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/patients/1/bills",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "patients",
+                "1",
+                "bills"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Record Payment (Partial or Full)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 100.0,\n  \"payment_method\": \"UPI\",\n  \"transaction_reference\": \"UPI-PAY-778899\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/bills/1/payments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bills",
+                "1",
+                "payments"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Bill Payment History",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/bills/1/payments",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "bills",
+                "1",
+                "payments"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Payment Details by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/payments/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "payments",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Payments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/payments?payment_method=UPI",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "payments"
+              ],
+              "query": [
+                {
+                  "key": "payment_method",
+                  "value": "UPI"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Medicines & Pharmacy",
+      "item": [
+        {
+          "name": "Add Medicine",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"medicine_name\": \"Azithromycin 500mg\",\n  \"generic_name\": \"Azithromycin\",\n  \"manufacturer\": \"Pfizer\",\n  \"category\": \"Antibiotic\",\n  \"batch_number\": \"AZM-2026-09\",\n  \"quantity\": 80,\n  \"unit_price\": 14.50,\n  \"expiry_date\": \"2027-05-15\",\n  \"minimum_stock\": 15,\n  \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/medicines",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "medicines"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Medicines (Search & Filter)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/medicines?category=Antibiotic&min_price=5&max_price=50&sort_by=quantity&sort_order=desc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "medicines"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "Antibiotic"
+                },
+                {
+                  "key": "min_price",
+                  "value": "5"
+                },
+                {
+                  "key": "max_price",
+                  "value": "50"
+                },
+                {
+                  "key": "sort_by",
+                  "value": "quantity"
+                },
+                {
+                  "key": "sort_order",
+                  "value": "desc"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Low-Stock Medicines",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/medicines/low-stock",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "medicines",
+                "low-stock"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Expiring Medicines",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/medicines/expiring?days=30",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "medicines",
+                "expiring"
+              ],
+              "query": [
+                {
+                  "key": "days",
+                  "value": "30"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Add Medicine Stock",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantity\": 25\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/medicines/1/stock/add",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "medicines",
+                "1",
+                "stock",
+                "add"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Reduce Medicine Stock",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantity\": 10\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/medicines/1/stock/reduce",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "medicines",
+                "1",
+                "stock",
+                "reduce"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Sell Medicine to Patient",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"medicine_id\": 1,\n  \"patient_id\": 1,\n  \"quantity_sold\": 3\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/medicine-sales",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "medicine-sales"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Medicine Sales",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/medicine-sales",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "medicine-sales"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Patient Purchase History",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/patients/1/medicine-sales",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "patients",
+                "1",
+                "medicine-sales"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Laboratory Test Management",
+      "item": [
+        {
+          "name": "Add Laboratory Test (CBC)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"test_name\": \"Complete Blood Count\",\n  \"test_code\": \"CBC-001\",\n  \"category\": \"Hematology\",\n  \"description\": \"Measures red/white blood cells, platelets, hemoglobin\",\n  \"price\": 35.0,\n  \"sample_type\": \"Whole Blood\",\n  \"preparation_instructions\": \"No special fasting required\",\n  \"is_active\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/lab-tests",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "lab-tests"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Laboratory Tests",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/lab-tests",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "lab-tests"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Lab Tests by Name or Code",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/lab-tests?search=blood",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "lab-tests"
+              ],
+              "query": [
+                {
+                  "key": "search",
+                  "value": "blood"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Filter Lab Tests by Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/lab-tests?category=Hematology",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "lab-tests"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "Hematology"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Lab Test by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/lab-tests/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "lab-tests",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Lab Test Details",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"price\": 40.0,\n  \"description\": \"Updated comprehensive CBC profile\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/lab-tests/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "lab-tests",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Lab Test",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/lab-tests/4",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "lab-tests",
+                "4"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Lab Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patient_id\": 1,\n  \"doctor_id\": 1,\n  \"test_id\": 1,\n  \"scheduled_date\": \"2026-11-20\",\n  \"notes\": \"Patient suspected of mild iron deficiency anemia\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/lab-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "lab-orders"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Batch Lab Orders (Multiple Tests & Total Cost)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patient_id\": 1,\n  \"doctor_id\": 1,\n  \"test_ids\": [\n    1,\n    2\n  ],\n  \"scheduled_date\": \"2026-11-20\",\n  \"notes\": \"Comprehensive screening panel\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/lab-orders/batch",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "lab-orders",
+                "batch"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Lab Orders (Filtered & Sorted)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/lab-orders?status=ORDERED&sort_by=order_date&sort_order=desc",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "lab-orders"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "ORDERED"
+                },
+                {
+                  "key": "sort_by",
+                  "value": "order_date"
+                },
+                {
+                  "key": "sort_order",
+                  "value": "desc"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Lab Order by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/lab-orders/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "lab-orders",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Lab Order Status (to SAMPLE_COLLECTED or PROCESSING)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"SAMPLE_COLLECTED\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/lab-orders/1/status",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "lab-orders",
+                "1",
+                "status"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Patient Lab History",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/patients/1/lab-orders",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "patients",
+                "1",
+                "lab-orders"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Patient Lab History Summary with Total Cost",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/patients/1/lab-orders/summary",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "patients",
+                "1",
+                "lab-orders",
+                "summary"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Record Lab Test Result (Auto-completes Order)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"order_id\": 2,\n  \"result_value\": \"Fasting Blood Sugar: 92 mg/dL\",\n  \"normal_range\": \"70-99 mg/dL (Normal fasting)\",\n  \"remarks\": \"Patient blood sugar is well within the normal healthy range.\",\n  \"tested_by\": \"Dr. Sarah Connor, Chief of Lab\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/lab-results",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "lab-results"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get All Lab Results",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/lab-results",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "lab-results"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Lab Result by Result ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/lab-results/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "lab-results",
+                "1"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Result for Specific Lab Order",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/lab-orders/1/result",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "lab-orders",
+                "1",
+                "result"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
